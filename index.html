@@ -3,21 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>need a partner. You in, Soumi?<title>
-    <link rel="stylesheet" href="styles.css">
+    <title>need a partner. You in, Soumi?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            font-family: 'Arial', sans-serif;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #d32f2f;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.2;
+        }
+        
+        .buttons {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .yes-button {
+            font-size: 1.5em;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #4caf50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            font-weight: bold;
+        }
+        
+        .yes-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .no-button {
+            font-size: 1.5em;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #f44336, #e53935);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+            font-weight: bold;
+        }
+        
+        .no-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+        }
+        
+        .gif_container {
+            margin-top: 30px;
+        }
+        
+        .gif_container img {
+            max-width: 100%;
+            max-height: 400px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .yes-page {
+            display: none;
+        }
+        
+        .yes-page.active {
+            display: block;
+        }
+        
+        .yes-page .header_text {
+            font-size: 3em;
+            color: #d32f2f;
+            margin-bottom: 30px;
+            animation: bounce 1s ease-in-out;
+        }
+        
+        .yes-page .gif_container img {
+            width: 100%; 
+            max-width: 500px; 
+            height: auto;
+            border-radius: 15px;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .yes-button, .no-button {
+                font-size: 1.2em;
+                padding: 12px 24px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .yes-page .header_text {
+                font-size: 2.2em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container main-page" id="mainPage">
         <h1>Soumii, will you be my forever and ever… the one I laugh with, grow with, and hold close—always?</h1>
         <div class="buttons">
             <button class="yes-button" onclick="handleYesClick()">Yes</button>
             <button class="no-button" onclick="handleNoClick()">No</button>
         </div>
         <div class="gif_container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bG9xZTg5anlzY2EwZDFueHhydGkyZnd1bHJrZndtMWRqY2ZpMG0yayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/JHxzdprX2FItgcpct5/giphy.gif" alt="Cute GIF">
-            <!-- <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute GIF"> -->
+            <img id="mainGif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXJkdTB3ZHcwcXoxMXJ6cWhsOWhsZjdsbTdhdnFzZW1rbDJkOWF6eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Heart GIF">
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="container yes-page" id="yesPage">
+        <h1 class="header_text">Knew you would say yes!</h1>
+        <div class="gif_container">
+            <img id="yesGif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3F5N2JsNGh6cjVheHU4ZnJqbjB0enJ2dWd5M3c4bDQ1bGFyb2x6aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/artj92V8o75VPL7AeQ/giphy.gif" alt="Celebration Hearts GIF">
+        </div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        const messages = [
+            "Soumii… are you *really* sure? 😢",
+            "Come on, pretty please? 🥺",
+            "You're breaking my heart here 😭",
+            "Pookie Soumii, don't do this 😩",
+            "What if I told you… I baked cookies? 🍪",
+            "I'll be sooooo sad if you say no 😔",
+            "Like… 'curl-up-with-sad-songs' sad 💔",
+            "I'm not giving up. You're too special.",
+            "Okay, I'll stop asking... 😞",
+            "Just kidding! Say yes, my favorite human! ❤️"
+        ];
+
+        let messageIndex = 0;
+
+        function handleNoClick() {
+            const noButton = document.querySelector('.no-button');
+            const yesButton = document.querySelector('.yes-button');
+
+            noButton.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+
+            const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = `${currentSize * 1.4}px`;
+            
+            // Add a little shake animation to the no button
+            noButton.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                noButton.style.animation = '';
+            }, 500);
+        }
+
+        function handleYesClick() {
+            // Hide main page and show yes page
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('yesPage').classList.add('active');
+            
+            // Create floating hearts
+            createHearts();
+            
+            // Show alert after a short delay
+            setTimeout(() => {
+                alert("YAY!! You said yes, Soumii!! 💖 This made my day 🌸");
+            }, 1000);
+        }
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartSymbols = ['💖', '💕', '💗', '💝', '💘', '❤️', '💓', '💞'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }, i * 100);
+            }
+        }
+
+        // Add shake animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Handle GIF loading with fallbacks
+        function initializeGifs() {
+            const mainGif = document.getElementById('mainGif');
+            const yesGif = document.getElementById('yesGif');
+            
+            // Fallback GIFs if the primary ones don't load
+            const fallbackGifs = [
+                'https://media.giphy.com/media/l0HlHFRbmaZtBRhXG/giphy.gif',
+                'https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif',
+                'https://media.giphy.com/media/3oEduOnl5IHM5NRodO/giphy.gif'
+            ];
+            
+            let mainGifIndex = 0;
+            let yesGifIndex = 0;
+            
+            mainGif.onerror = function() {
+                if (mainGifIndex < fallbackGifs.length) {
+                    this.src = fallbackGifs[mainGifIndex++];
+                } else {
+                    // If all GIFs fail, show a CSS heart animation
+                    this.style.display = 'none';
+                    showCSSHeart(this.parentElement);
+                }
+            };
+            
+            yesGif.onerror = function() {
+                if (yesGifIndex < fallbackGifs.length) {
+                    this.src = fallbackGifs[yesGifIndex++];
+                } else {
+                    // If all GIFs fail, show CSS celebration
+                    this.style.display = 'none';
+                    showCSSCelebration(this.parentElement);
+                }
+            };
+        }
+        
+        function showCSSHeart(container) {
+            const heartDiv = document.createElement('div');
+            heartDiv.innerHTML = '💖';
+            heartDiv.style.cssText = `
+                font-size: 120px;
+                animation: heartbeat 1.5s ease-in-out infinite;
+                margin: 20px;
+            `;
+            container.appendChild(heartDiv);
+            
+            // Add heartbeat animation
+            if (!document.getElementById('heartbeat-style')) {
+                const style = document.createElement('style');
+                style.id = 'heartbeat-style';
+                style.textContent = `
+                    @keyframes heartbeat {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.1); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        
+        function showCSSCelebration(container) {
+            const celebrationDiv = document.createElement('div');
+            celebrationDiv.innerHTML = '🎉💖✨';
+            celebrationDiv.style.cssText = `
+                font-size: 80px;
+                animation: celebration 2s ease-in-out infinite;
+                margin: 20px;
+            `;
+            container.appendChild(celebrationDiv);
+            
+            // Add celebration animation
+            if (!document.getElementById('celebration-style')) {
+                const style = document.createElement('style');
+                style.id = 'celebration-style';
+                style.textContent = `
+                    @keyframes celebration {
+                        0%, 100% { transform: rotate(0deg) scale(1); }
+                        25% { transform: rotate(-5deg) scale(1.1); }
+                        75% { transform: rotate(5deg) scale(1.1); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Initialize GIFs when page loads
+        window.addEventListener('load', initializeGifs);
+        function addFunChaos() {
+            setInterval(() => {
+                const entropy = Math.random();
+                if (entropy < 0.1 && document.getElementById('mainPage').style.display !== 'none') {
+                    const noButton = document.querySelector('.no-button');
+                    const yesButton = document.querySelector('.yes-button');
+                    
+                    if (noButton && yesButton && Math.random() < 0.5) {
+                        noButton.textContent = "Soumii... please rethink? 😅";
+                        yesButton.textContent = "Yesss 😍";
+                        
+                        setTimeout(() => {
+                            noButton.textContent = "No";
+                            yesButton.textContent = "Yes";
+                        }, 2000);
+                    }
+                }
+            }, 15000);
+        }
+
+        // Start the fun chaos after page loads
+        setTimeout(addFunChaos, 5000);
+    </script>
 </body>
 </html>
