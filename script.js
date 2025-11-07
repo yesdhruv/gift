@@ -49,7 +49,7 @@
 // }
 
 // function handleYesClick() {
-//     alert("YAY!! You said yes, Soumii!! 💖 This made my day 🌸");
+//     alert("YAY!! You said yes, Anshi!! 💖 This made my day 🌸");
 //     window.location.href = "yes_page.html";
 // }
 
@@ -69,7 +69,7 @@
 //                 }
 //             }
 //             if (entropy < 0.15) {
-//                 document.querySelector('.no-button')?.textContent = "Soumii... please rethink? 😅";
+//                 document.querySelector('.no-button')?.textContent = "Anshii... please rethink? 😅";
 //                 document.querySelector('.yes-button')?.textContent = "Yesss 😍";
 //             }
 //             if (entropy < 0.1) {
