@@ -23,10 +23,10 @@
 // })();
 
 // const messages = [
-//     "Soumii… are you *really* sure? 😢",
+//     "Anshi are you *really* sure? 😢",
 //     "Come on, pretty please? 🥺",
 //     "You’re breaking my heart here 😭",
-//     "Pookie Soumii, don’t do this 😩",
+//     "Pookie Anshi, don’t do this 😩",
 //     "What if I told you… I baked cookies? 🍪",
 //     "I’ll be sooooo sad if you say no 😔",
 //     "Like… ‘curl-up-with-sad-songs’ sad 💔",
